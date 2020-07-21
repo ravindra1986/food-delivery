@@ -1,4 +1,5 @@
 package com.altimetrik.model;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,56 +22,51 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Data
-@NoArgsConstructor
-public class Restaurant implements Serializable{
+@Table(name = "restaurant")
+public class Restaurant implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2942752986520809285L;
 
 	@GeneratedValue
-    @Id
-    private Long id;
+	@Id
+	private Long id;
 
-    private String name;
+	private String name;
 
-    private String location;
-    
-    
-    private double rating;
-    
-    private long deatination;
+	private String location;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<Menu> menus;
-    
-    @JsonManagedReference
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<Order> orders;
+	private double rating;
 
-    @JsonCreator
-    public Restaurant(@JsonProperty("id") Long id, @JsonProperty("name") String name, 
-    		@JsonProperty("location") String location, 
-    		@JsonProperty("menus") List<Menu> menus,@JsonProperty("rating") Double rating,
-    		@JsonProperty("destination") Long destination,@JsonProperty("order") List<Order> order) {
-        this.name = name;
-        this.location = location;
-        this.deatination= destination;
-        this.rating= rating;
-        if (menus != null ) {
-            this.menus = menus;
-            for (Menu menu : menus)
-                menu.setRestaurant(this);
-        }
-        if(order !=null) {
-        	this.orders=order;
-        	for(Order order1:orders)
-        		order1.setRestaurant(this);
-        }
-    }
+	private long deatination;
 
-	/* (non-Javadoc)
+	@JsonManagedReference
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	private List<Menu> menus;
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	private List<Order> orders;
+
+	public Restaurant() {
+	}
+
+	public Restaurant(Long id, String name, String location, double rating, long deatination, List<Menu> menus,
+			List<Order> orders) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.location = location;
+		this.rating = rating;
+		this.deatination = deatination;
+		this.menus = menus;
+		this.orders = orders;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -86,7 +83,8 @@ public class Restaurant implements Serializable{
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
@@ -100,7 +98,8 @@ public class Restaurant implements Serializable{
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -114,7 +113,8 @@ public class Restaurant implements Serializable{
 	}
 
 	/**
-	 * @param location the location to set
+	 * @param location
+	 *            the location to set
 	 */
 	public void setLocation(String location) {
 		this.location = location;
@@ -128,7 +128,8 @@ public class Restaurant implements Serializable{
 	}
 
 	/**
-	 * @param rating the rating to set
+	 * @param rating
+	 *            the rating to set
 	 */
 	public void setRating(double rating) {
 		this.rating = rating;
@@ -142,7 +143,8 @@ public class Restaurant implements Serializable{
 	}
 
 	/**
-	 * @param deatination the deatination to set
+	 * @param deatination
+	 *            the deatination to set
 	 */
 	public void setDeatination(long deatination) {
 		this.deatination = deatination;
@@ -156,12 +158,11 @@ public class Restaurant implements Serializable{
 	}
 
 	/**
-	 * @param menus the menus to set
+	 * @param menus
+	 *            the menus to set
 	 */
 	public void setMenus(List<Menu> menus) {
 		this.menus = menus;
 	}
 
-    
-    
 }

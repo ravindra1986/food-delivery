@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@NoArgsConstructor
+@Table(name = "menuitem")
 public class MenuItem implements Serializable{
 	/**
 	 * 
@@ -44,16 +45,25 @@ public class MenuItem implements Serializable{
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
-    public MenuItem(@JsonProperty("id") Long id, @JsonProperty("name") String name, @JsonProperty("info") String info,
-                    @JsonProperty("imageUrl") String imageUrl, @JsonProperty("price") Double price) {
-        this.id = id;
-        this.name = name;
-        this.info = info;
-        this.imageUrl = imageUrl;
-        this.price = price;
-    }
+    
 
-    @Override
+    public MenuItem() {
+		
+	}
+    
+
+	public MenuItem(Long id, String name, String info, String imageUrl, Double price, Menu menu) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.info = info;
+		this.imageUrl = imageUrl;
+		this.price = price;
+		this.menu = menu;
+	}
+
+
+	@Override
     public String toString() {
         return "MenuItem{" +
                 "id=" + id +

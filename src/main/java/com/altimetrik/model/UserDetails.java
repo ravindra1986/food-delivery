@@ -5,13 +5,14 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Data
+@Table(name = "userdetails")
 public class UserDetails implements Serializable{
 
 	/**
@@ -29,7 +30,6 @@ public class UserDetails implements Serializable{
 	
 	
 	public UserDetails() {
-		super();
 	}
 	public UserDetails(String firstName, String lastName, String email, String password, int mobileNo) {
 		super();

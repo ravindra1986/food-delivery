@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@NoArgsConstructor
+@Table(name = "menu")
 public class Menu implements Serializable{
 	/**
 	 * 
@@ -45,19 +45,13 @@ public class Menu implements Serializable{
         return restaurant;
     }
 
-    @JsonCreator
-    public Menu(@JsonProperty("id") Long id, @JsonProperty("type") String type, @JsonProperty("info") String info, @JsonProperty("items") List<MenuItem> items) {
-        this.id = id;
-        this.type = type;
-        this.info = info;
-        if (items != null) {
-            this.items = items;
-            for (MenuItem item : items)
-                item.setMenu(this);
-        }
-    }
+    
 
-    public Menu(Long id, String type, String info, Restaurant restaurant) {
+    public Menu() {
+		super();
+	}
+
+	public Menu(Long id, String type, String info, Restaurant restaurant) {
         this.id = id;
         this.type = type;
         this.info = info;
